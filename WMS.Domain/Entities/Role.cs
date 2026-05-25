@@ -9,11 +9,12 @@ namespace WMS.Domain.Entities
 
         [Required]
         [StringLength(50)]
-        public string RoleName { get; set; }
+        public string RoleName { get; set; } = string.Empty;
 
         [StringLength(150)]
         public string? Description { get; set; }
 
+        // Navigation Property
         public ICollection<Employee>? Employees { get; set; }
     }
 }
