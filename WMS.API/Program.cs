@@ -40,6 +40,9 @@ namespace WMS.API
 
             builder.Services.AddScoped<IRoleService, RoleService>();
 
+            builder.Services.AddScoped<IAttendanceRepository, AttendanceRepository>();
+
+            builder.Services.AddScoped<IAttendanceService, AttendanceService>();
             /*
             JWT SECTION
             */

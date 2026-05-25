@@ -16,6 +16,8 @@ namespace WMS.Infrastructure.Data
 
         public DbSet<Role> Roles { get; set; }
 
+        public DbSet<Attendance> Attendances { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Employee>()
@@ -27,6 +29,11 @@ namespace WMS.Infrastructure.Data
                 .HasOne(e => e.Role)
                 .WithMany(r => r.Employees)
                 .HasForeignKey(e => e.RoleId);
+
+                modelBuilder.Entity<Attendance>()
+                .HasOne(a => a.Employee)
+                .WithMany()
+                .HasForeignKey(a => a.EmployeeId);
         }
     }
 }
