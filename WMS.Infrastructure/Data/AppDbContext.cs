@@ -18,6 +18,7 @@ namespace WMS.Infrastructure.Data
 
         public DbSet<Attendance> Attendances { get; set; }
 
+        public DbSet<LeaveRequest> LeaveRequests { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Employee>()
@@ -34,6 +35,11 @@ namespace WMS.Infrastructure.Data
                 .HasOne(a => a.Employee)
                 .WithMany()
                 .HasForeignKey(a => a.EmployeeId);
+
+                modelBuilder.Entity<LeaveRequest>()
+                .HasOne(l => l.Employee)
+                .WithMany()
+                .HasForeignKey(l => l.EmployeeId);
         }
     }
 }

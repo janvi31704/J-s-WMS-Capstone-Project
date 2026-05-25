@@ -43,6 +43,10 @@ namespace WMS.API
             builder.Services.AddScoped<IAttendanceRepository, AttendanceRepository>();
 
             builder.Services.AddScoped<IAttendanceService, AttendanceService>();
+
+            builder.Services.AddScoped<ILeaveRequestRepository, LeaveRequestRepository>();
+
+            builder.Services.AddScoped<ILeaveRequestService, LeaveRequestService>();
             /*
             JWT SECTION
             */
