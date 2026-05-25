@@ -47,11 +47,11 @@ namespace WMS.API
             builder.Services.AddScoped<ILeaveRequestRepository, LeaveRequestRepository>();
 
             builder.Services.AddScoped<ILeaveRequestService, LeaveRequestService>();
-            /*
-            JWT SECTION
-            */
 
-            /*
+            builder.Services.AddScoped<IAuthRepository, AuthRepository>();
+
+            builder.Services.AddScoped<IAuthService, AuthService>();
+            
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
@@ -70,7 +70,7 @@ namespace WMS.API
                 });
 
             builder.Services.AddAuthorization();
-            */
+            
 
             // CORS
             builder.Services.AddCors(options =>
@@ -96,6 +96,8 @@ namespace WMS.API
             }
 
             app.UseHttpsRedirection();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
