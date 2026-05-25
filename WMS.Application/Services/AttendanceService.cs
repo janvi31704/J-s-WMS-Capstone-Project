@@ -117,5 +117,44 @@ namespace WMS.Application.Services
 
             await _repository.UpdateAsync(attendance);
         }
+
+        public async Task<IEnumerable<AttendanceDto>> GetMonthlyAttendanceAsync(
+            int employeeId,
+            int month,
+            int year)
+        {
+            var attendance =
+                await _repository.GetMonthlyAttendanceAsync(
+                    employeeId,
+                    month,
+                    year);
+
+            return attendance.Select(a => new AttendanceDto
+            {
+                AttendanceId = a.AttendanceId,
+                EmployeeId = a.EmployeeId,
+                AttendanceDate = a.AttendanceDate,
+                CheckInTime = a.CheckInTime,
+                CheckOutTime = a.CheckOutTime,
+                Status = a.Status,
+                WorkingHours = a.WorkingHours,
+                Remarks = a.Remarks
+            });
+}
+
+public async Task<decimal> GetTotalWorkingHoursAsync(
+    int employeeId,
+    int month,
+    int year)
+{
+    var attendance =
+        await _repository.GetMonthlyAttendanceAsync(
+            employeeId,
+            month,
+            year);
+
+    return attendance.Sum(a => a.WorkingHours ?? 0);
+}
     }
+
 }

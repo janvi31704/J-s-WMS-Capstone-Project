@@ -6,6 +6,8 @@ using System.Text;
 using WMS.Application.Interfaces;
 using WMS.Application.Services;
 using WMS.Infrastructure.Repositories;
+using Microsoft.OpenApi.Models;
+using WMS.Infrastructure.Services;
 
 namespace WMS.API
 {
@@ -20,7 +22,36 @@ namespace WMS.API
             builder.Services.AddControllers();
 
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen(options =>
+{
+    options.AddSecurityDefinition("Bearer",
+        new OpenApiSecurityScheme
+        {
+            Name = "Authorization",
+            Type = SecuritySchemeType.Http,
+            Scheme = "bearer",
+            BearerFormat = "JWT",
+            In = ParameterLocation.Header,
+            Description = "Enter JWT Token"
+        });
+
+    options.AddSecurityRequirement(
+        new OpenApiSecurityRequirement
+        {
+            {
+                new OpenApiSecurityScheme
+                {
+                    Reference =
+                        new OpenApiReference
+                        {
+                            Type = ReferenceType.SecurityScheme,
+                            Id = "Bearer"
+                        }
+                },
+                Array.Empty<string>()
+            }
+        });
+});
 
             // DbContext
             builder.Services.AddDbContext<AppDbContext>(options =>
@@ -51,6 +82,24 @@ namespace WMS.API
             builder.Services.AddScoped<IAuthRepository, AuthRepository>();
 
             builder.Services.AddScoped<IAuthService, AuthService>();
+
+            builder.Services.AddScoped<IClientRepository, ClientRepository>();
+
+            builder.Services.AddScoped<IClientService, ClientService>();
+
+            builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
+
+            builder.Services.AddScoped<IProjectService, ProjectService>();
+
+            builder.Services.AddScoped<IEmployeeProjectAllocationRepository,EmployeeProjectAllocationRepository>();
+
+            builder.Services.AddScoped<IEmployeeProjectAllocationService,EmployeeProjectAllocationService>();
+
+            builder.Services.AddScoped<IDashboardService,DashboardService>();
+
+            builder.Services.AddScoped<IAnnouncementRepository,AnnouncementRepository>();
+
+            builder.Services.AddScoped<IAnnouncementService,AnnouncementService>();
             
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>

@@ -13,5 +13,10 @@ namespace WMS.Application.Interfaces
         Task UpdateAsync(Attendance attendance);
 
         Task<Attendance?> GetTodayAttendanceAsync(int employeeId, DateTime date);
+
+        Task<IEnumerable<Attendance>> GetMonthlyAttendanceAsync(
+            int employeeId,
+            int month,
+            int year);
     }
 }

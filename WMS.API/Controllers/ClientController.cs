@@ -1,71 +1,65 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WMS.Application.DTOs;
 using WMS.Application.Interfaces;
-using Microsoft.AspNetCore.Authorization;
 
 namespace WMS.API.Controllers
 {
     [Authorize]
+
     [Route("api/[controller]")]
     [ApiController]
-    public class EmployeeController : ControllerBase
+    public class ClientController : ControllerBase
     {
-        private readonly IEmployeeService _service;
+        private readonly IClientService _service;
 
-        public EmployeeController(IEmployeeService service)
+        public ClientController(IClientService service)
         {
             _service = service;
         }
 
-        // GET: api/employee
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var employees = await _service.GetAllAsync();
-
-            return Ok(employees);
+            return Ok(await _service.GetAllAsync());
         }
 
-        // GET: api/employee/5
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var employee = await _service.GetByIdAsync(id);
+            var client = await _service.GetByIdAsync(id);
 
-            if (employee == null)
+            if (client == null)
                 return NotFound();
 
-            return Ok(employee);
+            return Ok(client);
         }
 
-        // POST: api/employee
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public async Task<IActionResult> Create(CreateEmployeeDto dto)
+        public async Task<IActionResult> Create(CreateClientDto dto)
         {
             await _service.AddAsync(dto);
 
-            return Ok("Employee created successfully");
+            return Ok("Client created successfully");
         }
 
-        // PUT: api/employee/5
         [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, UpdateEmployeeDto dto)
+        public async Task<IActionResult> Update(int id, UpdateClientDto dto)
         {
             await _service.UpdateAsync(id, dto);
 
-            return Ok("Employee updated successfully");
+            return Ok("Client updated successfully");
         }
 
-        // DELETE: api/employee/5
         [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             await _service.DeleteAsync(id);
 
-            return Ok("Employee deleted successfully");
+            return Ok("Client deleted successfully");
         }
     }
 }

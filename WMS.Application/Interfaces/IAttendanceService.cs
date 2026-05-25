@@ -11,5 +11,15 @@ namespace WMS.Application.Interfaces
         Task CheckInAsync(CheckInDto dto);
 
         Task CheckOutAsync(CheckOutDto dto);
-    }
+
+        Task<IEnumerable<AttendanceDto>> GetMonthlyAttendanceAsync(
+            int employeeId,
+            int month,
+            int year);
+
+        Task<decimal> GetTotalWorkingHoursAsync(
+            int employeeId,
+            int month,
+            int year);
+            }
 }

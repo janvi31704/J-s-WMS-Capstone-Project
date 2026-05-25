@@ -21,6 +21,15 @@ namespace WMS.Infrastructure.Data
         public DbSet<LeaveRequest> LeaveRequests { get; set; }
 
         public DbSet<UserLogin> UserLogins { get; set; }
+
+        public DbSet<Client> Clients { get; set; }
+
+        public DbSet<Project> Projects { get; set; }
+
+        public DbSet<EmployeeProjectAllocation> EmployeeProjectAllocations { get; set; }
+
+        public DbSet<Announcement> Announcements { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Employee>()
@@ -53,6 +62,23 @@ namespace WMS.Infrastructure.Data
                     .HasOne(u => u.Role)
                     .WithMany()
                     .HasForeignKey(u => u.RoleId)
+                    .OnDelete(DeleteBehavior.NoAction);
+                modelBuilder.Entity<Project>()
+                    .HasOne(p => p.Client)
+                    .WithMany()
+                    .HasForeignKey(p => p.ClientId)
+                    .OnDelete(DeleteBehavior.NoAction);
+
+                modelBuilder.Entity<EmployeeProjectAllocation>()
+                    .HasOne(e => e.Employee)
+                    .WithMany()
+                    .HasForeignKey(e => e.EmpId)
+                    .OnDelete(DeleteBehavior.NoAction);
+
+                modelBuilder.Entity<EmployeeProjectAllocation>()
+                    .HasOne(e => e.Project)
+                    .WithMany()
+                    .HasForeignKey(e => e.ProjectId)
                     .OnDelete(DeleteBehavior.NoAction);
         }
     }

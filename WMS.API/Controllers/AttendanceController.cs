@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 using WMS.Application.DTOs;
 using WMS.Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WMS.API.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class AttendanceController : ControllerBase
@@ -66,6 +68,21 @@ namespace WMS.API.Controllers
             {
                 return BadRequest(ex.Message);
             }
+        }
+
+        [HttpGet("monthly/{employeeId}")]
+        public async Task<IActionResult> GetMonthlyAttendance(
+            int employeeId,
+            int month,
+            int year)
+        {
+            var result =
+                await _service.GetMonthlyAttendanceAsync(
+                    employeeId,
+                    month,
+                    year);
+
+            return Ok(result);
         }
     }
 }

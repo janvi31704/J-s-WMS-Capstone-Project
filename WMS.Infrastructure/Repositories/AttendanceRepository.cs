@@ -43,5 +43,18 @@ namespace WMS.Infrastructure.Repositories
                     a.EmployeeId == employeeId &&
                     a.AttendanceDate.Date == date.Date);
         }
+
+        public async Task<IEnumerable<Attendance>> GetMonthlyAttendanceAsync(
+            int employeeId,
+            int month,
+            int year)
+        {
+            return await _context.Attendances
+                .Where(a =>
+                    a.EmployeeId == employeeId &&
+                    a.AttendanceDate.Month == month &&
+                    a.AttendanceDate.Year == year)
+                .ToListAsync();
+}
     }
 }

@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 using WMS.Application.DTOs;
 using WMS.Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WMS.API.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class LeaveRequestController : ControllerBase
@@ -47,6 +49,7 @@ namespace WMS.API.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin,Manager")]
         [HttpPut("{id}/approve")]
         public async Task<IActionResult> ApproveLeave(int id, LeaveApprovalDto dto)
         {
@@ -62,6 +65,8 @@ namespace WMS.API.Controllers
             }
         }
 
+
+        [Authorize(Roles = "Admin,Manager")]
         [HttpPut("{id}/reject")]
         public async Task<IActionResult> RejectLeave(int id, LeaveApprovalDto dto)
         {
