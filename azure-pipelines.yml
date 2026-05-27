@@ -41,8 +41,9 @@ steps:
 # RUN TESTS
 
 - script: |
-    dotnet test WMS.sln --no-build
+    dotnet test WMS.Tests/WMS.Tests.csproj
   displayName: 'Run Tests'
+
 
 
 
