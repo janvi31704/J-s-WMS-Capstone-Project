@@ -2,6 +2,8 @@
 # Start with a minimal pipeline that you can customize to build and deploy your code.
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
+
+
 trigger:
 - master
 
@@ -13,59 +15,56 @@ variables:
 
 steps:
 
-# INSTALL .NET
+# INSTALL .NET SDK
 
 - task: UseDotNet@2
   inputs:
     packageType: 'sdk'
     version: '8.x'
 
-# RESTORE BACKEND
+# RESTORE .NET SOLUTION
 
 - script: |
-    cd WMS-Solution
     dotnet restore
   displayName: 'Restore .NET Solution'
 
-# BUILD BACKEND
+# BUILD .NET API
 
 - script: |
-    cd WMS-Solution
     dotnet build --configuration $(buildConfiguration)
   displayName: 'Build .NET API'
 
 # RUN TESTS
 
 - script: |
-    cd WMS-Solution
     dotnet test --no-build
   displayName: 'Run Tests'
 
-# INSTALL NODE
+# INSTALL NODE.JS
 
 - task: NodeTool@0
   inputs:
     versionSpec: '20.x'
   displayName: 'Install Node.js'
 
-# INSTALL ANGULAR DEPENDENCIES
+# INSTALL ANGULAR PACKAGES
 
 - script: |
-    cd WMS-Solution/WMS.Frontend
+    cd WMS.Frontend
     npm install
   displayName: 'Install Angular Packages'
 
-# BUILD ANGULAR
+# BUILD ANGULAR APP
 
 - script: |
-    cd WMS-Solution/WMS.Frontend
+    cd WMS.Frontend
     npm run build
   displayName: 'Build Angular App'
 
-# PUBLISH BACKEND ARTIFACTS
+# PUBLISH BUILD ARTIFACTS
 
 - task: PublishBuildArtifacts@1
   inputs:
-    pathToPublish: 'WMS-Solution'
+    pathToPublish: '.'
     artifactName: 'WMS-Build'
   displayName: 'Publish Build Artifacts'
