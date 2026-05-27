@@ -12,6 +12,8 @@ namespace WMS.Application.Interfaces
 
         Task CheckOutAsync(CheckOutDto dto);
 
+        Task<IEnumerable<AttendanceReportDto>>GetAttendanceReportAsync();
+
         Task<IEnumerable<AttendanceDto>> GetMonthlyAttendanceAsync(
             int employeeId,
             int month,

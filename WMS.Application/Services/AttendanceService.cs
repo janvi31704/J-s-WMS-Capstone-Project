@@ -77,6 +77,8 @@ namespace WMS.Application.Services
             }
 
             await _repository.AddAsync(attendance);
+
+        
         }
 
         public async Task CheckOutAsync(CheckOutDto dto)
@@ -154,6 +156,35 @@ public async Task<decimal> GetTotalWorkingHoursAsync(
             year);
 
     return attendance.Sum(a => a.WorkingHours ?? 0);
+}
+
+public async Task<IEnumerable<AttendanceReportDto>>
+    GetAttendanceReportAsync()
+{
+    var attendance =
+        await _repository.GetAllAsync();
+
+    return attendance.Select(a =>
+        new AttendanceReportDto
+        {
+            EmployeeId = a.EmployeeId,
+
+            EmployeeName =
+                a.Employee != null
+                ? a.Employee.FirstName + " " +
+                  a.Employee.LastName
+                : "N/A",
+
+            AttendanceDate = a.AttendanceDate,
+
+            CheckInTime = a.CheckInTime,
+
+            CheckOutTime = a.CheckOutTime,
+
+            WorkingHours = a.WorkingHours,
+
+            Status = a.Status
+        });
 }
     }
 

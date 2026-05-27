@@ -6,5 +6,7 @@ namespace WMS.Application.DTOs
     {
         [Required]
         public int EmployeeId { get; set; }
+
+        
     }
 }

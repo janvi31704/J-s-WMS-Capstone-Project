@@ -84,5 +84,15 @@ namespace WMS.API.Controllers
 
             return Ok(result);
         }
+
+        [Authorize]
+
+        [HttpGet("report")]
+        public async Task<IActionResult>
+            GetAttendanceReport()
+        {
+            return Ok(
+                await _service.GetAttendanceReportAsync());
+        }
     }
 }

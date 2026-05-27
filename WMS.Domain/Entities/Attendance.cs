@@ -29,6 +29,8 @@ namespace WMS.Domain.Entities
 
         public DateTime CreatedOn { get; set; } = DateTime.Now;
 
+        
+
         // Navigation Property
         public Employee? Employee { get; set; }
     }

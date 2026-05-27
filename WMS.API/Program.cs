@@ -8,6 +8,8 @@ using WMS.Application.Services;
 using WMS.Infrastructure.Repositories;
 using Microsoft.OpenApi.Models;
 using WMS.Infrastructure.Services;
+using WMS.API.Middleware;
+using Microsoft.AspNetCore.Mvc;
 
 namespace WMS.API
 {
@@ -20,6 +22,24 @@ namespace WMS.API
             // Add services to the container.
 
             builder.Services.AddControllers();
+
+            builder.Services.Configure<ApiBehaviorOptions>(
+                options =>
+                {
+                    options.InvalidModelStateResponseFactory =
+                        context =>
+                        {
+                            return new BadRequestObjectResult(
+                                new
+                                {
+                                    message =
+                                        "Validation failed",
+
+                                    errors =
+                                        context.ModelState
+                                });
+                        };
+                });
 
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(options =>
@@ -100,6 +120,10 @@ namespace WMS.API
             builder.Services.AddScoped<IAnnouncementRepository,AnnouncementRepository>();
 
             builder.Services.AddScoped<IAnnouncementService,AnnouncementService>();
+
+            builder.Services.AddScoped<IAuditLogRepository,AuditLogRepository>();
+
+            builder.Services.AddScoped<IAuditLogService,AuditLogService>();
             
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
@@ -137,12 +161,16 @@ namespace WMS.API
 
             app.UseCors("AllowAngular");
 
+            app.UseMiddleware<ExceptionMiddleware>();
+
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            
 
             app.UseHttpsRedirection();
 

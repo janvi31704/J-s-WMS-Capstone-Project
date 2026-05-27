@@ -8,9 +8,12 @@ namespace WMS.Application.Services
     {
         private readonly IEmployeeRepository _repository;
 
-        public EmployeeService(IEmployeeRepository repository)
+        private readonly IAuditLogService _auditService;
+
+        public EmployeeService(IEmployeeRepository repository, IAuditLogService auditService)
         {
             _repository = repository;
+            _auditService = auditService;
         }
 
         public async Task<IEnumerable<EmployeeDto>> GetAllAsync()
@@ -79,6 +82,11 @@ namespace WMS.Application.Services
             };
 
             await _repository.AddAsync(employee);
+            await _auditService.AddAsync(
+    "Employee",
+    employee.EmployeeId,
+    "Insert",
+    1);
         }
 
         public async Task UpdateAsync(int id, UpdateEmployeeDto dto)
@@ -100,6 +108,11 @@ namespace WMS.Application.Services
             employee.UpdatedOn = DateTime.Now;
 
             await _repository.UpdateAsync(employee);
+            await _auditService.AddAsync(
+                "Employee",
+                employee.EmployeeId,
+                "Update",
+                1);
         }
 
         public async Task DeleteAsync(int id)
@@ -110,6 +123,11 @@ namespace WMS.Application.Services
                 return;
 
             await _repository.DeleteAsync(employee);
+            await _auditService.AddAsync(
+                "Employee",
+                employee.EmployeeId,
+                "Delete",
+                1);
         }
     }
 }

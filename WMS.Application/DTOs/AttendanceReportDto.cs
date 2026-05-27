@@ -1,10 +1,10 @@
 namespace WMS.Application.DTOs
 {
-    public class AttendanceDto
+    public class AttendanceReportDto
     {
-        public int AttendanceId { get; set; }
-
         public int EmployeeId { get; set; }
+
+        public string EmployeeName { get; set; }
 
         public DateTime AttendanceDate { get; set; }
 
@@ -12,12 +12,8 @@ namespace WMS.Application.DTOs
 
         public DateTime? CheckOutTime { get; set; }
 
-        public string Status { get; set; }
-
         public decimal? WorkingHours { get; set; }
 
-        public string? Remarks { get; set; }
-
-        
+        public string Status { get; set; }
     }
 }
