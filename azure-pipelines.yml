@@ -25,20 +25,26 @@ steps:
 # RESTORE .NET SOLUTION
 
 - script: |
-    dotnet restore
+    dotnet restore WMS.sln
   displayName: 'Restore .NET Solution'
+
+
 
 # BUILD .NET API
 
 - script: |
-    dotnet build --configuration $(buildConfiguration)
+    dotnet build WMS.sln --configuration $(buildConfiguration)
   displayName: 'Build .NET API'
+- script: |
+ 
 
 # RUN TESTS
 
 - script: |
-    dotnet test --no-build
+    dotnet test WMS.sln --no-build
   displayName: 'Run Tests'
+
+
 
 # INSTALL NODE.JS
 
