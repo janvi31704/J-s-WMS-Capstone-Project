@@ -57,14 +57,14 @@ steps:
 # INSTALL ANGULAR PACKAGES
 
 - script: |
-    cd WMS.Frontend
+    cd WMS-Solution/WMS.Frontend
     npm install
   displayName: 'Install Angular Packages'
 
 # BUILD ANGULAR APP
 
 - script: |
-    cd WMS.Frontend
+    cd WMS-Solution/WMS.Frontend
     npm run build
   displayName: 'Build Angular App'
 
