@@ -1,0 +1,402 @@
+<div class="attendance-page">
+
+  <!-- HEADER -->
+
+  <div class="top-section">
+
+    <h1>
+      Attendance Management
+    </h1>
+
+  </div>
+
+  <!-- ATTENDANCE ACTIONS -->
+
+<div class="attendance-actions">
+
+  <!-- EMPLOYEE -->
+
+  <mat-form-field appearance="outline">
+
+    <mat-label>
+      Employee
+    </mat-label>
+
+    <mat-select
+      [(ngModel)]="employeeId">
+
+      <mat-option
+        *ngFor="
+          let employee of employees
+        "
+        [value]="employee.employeeId">
+
+        {{ employee.firstName }}
+        {{ employee.lastName }}
+
+      </mat-option>
+
+    </mat-select>
+
+  </mat-form-field>
+
+  <!-- WORK MODE -->
+
+  <mat-form-field appearance="outline">
+
+    <mat-label>
+      Work Mode
+    </mat-label>
+
+    <mat-select
+      [(ngModel)]="workMode">
+
+      <mat-option value="Office">
+        Office
+      </mat-option>
+
+      <mat-option value="Remote">
+        Remote
+      </mat-option>
+
+      <mat-option value="Hybrid">
+        Hybrid
+      </mat-option>
+
+    </mat-select>
+
+  </mat-form-field>
+
+  <!-- CHECK IN -->
+
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="checkIn()">
+
+    Check In
+
+  </button>
+
+  <!-- CHECK OUT -->
+
+  <button
+    mat-raised-button
+    color="accent"
+    (click)="checkOut()">
+
+    Check Out
+
+  </button>
+
+</div>
+
+<!-- REPORT SECTION -->
+
+<div class="report-section">
+
+  <!-- MONTH -->
+
+  <mat-form-field appearance="outline">
+
+    <mat-label>
+      Month
+    </mat-label>
+
+    <mat-select
+      [(ngModel)]="selectedMonth">
+
+      <mat-option [value]="1">
+        January
+      </mat-option>
+
+      <mat-option [value]="2">
+        February
+      </mat-option>
+
+      <mat-option [value]="3">
+        March
+      </mat-option>
+
+      <mat-option [value]="4">
+        April
+      </mat-option>
+
+      <mat-option [value]="5">
+        May
+      </mat-option>
+
+      <mat-option [value]="6">
+        June
+      </mat-option>
+
+      <mat-option [value]="7">
+        July
+      </mat-option>
+
+      <mat-option [value]="8">
+        August
+      </mat-option>
+
+      <mat-option [value]="9">
+        September
+      </mat-option>
+
+      <mat-option [value]="10">
+        October
+      </mat-option>
+
+      <mat-option [value]="11">
+        November
+      </mat-option>
+
+      <mat-option [value]="12">
+        December
+      </mat-option>
+
+    </mat-select>
+
+  </mat-form-field>
+
+  <!-- YEAR -->
+
+  <mat-form-field appearance="outline">
+
+    <mat-label>
+      Year
+    </mat-label>
+
+    <input
+      matInput
+      type="number"
+      [(ngModel)]="selectedYear">
+
+  </mat-form-field>
+
+  <!-- VIEW BUTTON -->
+
+  <button
+    mat-raised-button
+    color="warn"
+    (click)="loadMonthlyAttendance()">
+
+    View Monthly Attendance
+
+  </button>
+
+  <!-- EXPORT -->
+
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="exportAttendanceReport()">
+
+    Download Report
+
+  </button>
+
+</div>
+  <!-- TABLE -->
+
+  <div class="table-container">
+
+    <table
+      mat-table
+      [dataSource]="attendanceList">
+
+      <!-- ID -->
+
+      <ng-container
+        matColumnDef="attendanceId">
+
+        <th
+          mat-header-cell
+          *matHeaderCellDef>
+
+          ID
+
+        </th>
+
+        <td
+          mat-cell
+          *matCellDef="let item">
+
+          {{ item.attendanceId }}
+
+        </td>
+
+      </ng-container>
+
+      <!-- EMPLOYEE -->
+
+      <ng-container
+        matColumnDef="employeeName">
+
+        <th
+          mat-header-cell
+          *matHeaderCellDef>
+
+          Employee
+
+        </th>
+
+        <td
+          mat-cell
+          *matCellDef="let item">
+
+          {{ getEmployeeName(
+              item.employeeId
+            )
+          }}
+
+        </td>
+
+      </ng-container>
+
+      <!-- DATE -->
+
+      <ng-container
+        matColumnDef="attendanceDate">
+
+        <th
+          mat-header-cell
+          *matHeaderCellDef>
+
+          Date
+
+        </th>
+
+        <td
+          mat-cell
+          *matCellDef="let item">
+
+          {{ item.attendanceDate
+            | date:'mediumDate' }}
+
+        </td>
+
+      </ng-container>
+
+      <!-- CHECK IN -->
+
+      <ng-container
+        matColumnDef="checkInTime">
+
+        <th
+          mat-header-cell
+          *matHeaderCellDef>
+
+          Check In
+
+        </th>
+
+        <td
+          mat-cell
+          *matCellDef="let item">
+
+          {{ item.checkInTime
+            | date:'shortTime' }}
+
+        </td>
+
+      </ng-container>
+
+      <!-- CHECK OUT -->
+
+      <ng-container
+        matColumnDef="checkOutTime">
+
+        <th
+          mat-header-cell
+          *matHeaderCellDef>
+
+          Check Out
+
+        </th>
+
+        <td
+          mat-cell
+          *matCellDef="let item">
+
+          {{ item.checkOutTime
+            | date:'shortTime' }}
+
+        </td>
+
+      </ng-container>
+
+      <!-- HOURS -->
+
+      <ng-container
+        matColumnDef="workingHours">
+
+        <th
+          mat-header-cell
+          *matHeaderCellDef>
+
+          Hours
+
+        </th>
+
+        <td
+          mat-cell
+          *matCellDef="let item">
+
+          {{ item.workingHours }}
+
+        </td>
+
+      </ng-container>
+
+      <!-- WORK MODE -->
+
+      
+        
+
+      <!-- STATUS -->
+
+      <ng-container
+        matColumnDef="status">
+
+        <th
+          mat-header-cell
+          *matHeaderCellDef>
+
+          Status
+
+        </th>
+
+        <td
+          mat-cell
+          *matCellDef="let item">
+
+          {{ item.status }}
+
+        </td>
+
+      </ng-container>
+
+      <!-- HEADER -->
+
+      <tr
+        mat-header-row
+        *matHeaderRowDef="
+          displayedColumns
+        ">
+      </tr>
+
+      <!-- ROW -->
+
+      <tr
+        mat-row
+        *matRowDef="
+          let row;
+          columns: displayedColumns;
+        ">
+      </tr>
+
+    </table>
+
+  </div>
+
+</div>

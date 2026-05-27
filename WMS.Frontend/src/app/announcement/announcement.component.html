@@ -1,0 +1,162 @@
+<div class="announcement-page">
+
+  <!-- HEADER -->
+
+  <div class="top-section">
+
+    <h1>
+      Notice Board
+    </h1>
+
+  </div>
+
+  <!-- FORM -->
+
+  <<div
+  class="announcement-form"
+  *ngIf="
+    authService.isAdmin()
+  ">
+
+    <!-- TITLE -->
+
+    <mat-form-field appearance="outline">
+
+      <mat-label>
+        Title
+      </mat-label>
+
+      <input
+        matInput
+        [(ngModel)]="
+          announcementForm.title
+        ">
+
+    </mat-form-field>
+
+    <!-- MESSAGE -->
+
+    <mat-form-field appearance="outline">
+
+      <mat-label>
+        Message
+      </mat-label>
+
+      <textarea
+        matInput
+        rows="3"
+        [(ngModel)]="
+          announcementForm.message
+        ">
+      </textarea>
+
+    </mat-form-field>
+
+    <!-- PRIORITY -->
+
+    <mat-form-field appearance="outline">
+
+      <mat-label>
+        Priority
+      </mat-label>
+
+      <mat-select
+        [(ngModel)]="
+          announcementForm.priority
+        ">
+
+        <mat-option value="Low">
+          Low
+        </mat-option>
+
+        <mat-option value="Normal">
+          Normal
+        </mat-option>
+
+        <mat-option value="High">
+          High
+        </mat-option>
+
+      </mat-select>
+
+    </mat-form-field>
+
+    <!-- SAVE -->
+
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="saveAnnouncement()">
+
+      {{ isEditMode
+        ? 'Update Announcement'
+        : 'Create Announcement'
+      }}
+
+    </button>
+
+  </div>
+
+  <!-- NOTICE CARDS -->
+
+  <div class="announcement-grid">
+
+    <mat-card
+      class="announcement-card"
+      *ngFor="
+        let item of announcements
+      ">
+
+      <div class="priority">
+
+        {{ item.priority }}
+
+      </div>
+
+      <h2>
+
+        {{ item.title }}
+
+      </h2>
+
+      <p>
+
+        {{ item.message }}
+
+      </p>
+
+      <div
+  class="card-actions"
+  *ngIf="
+    authService.isAdmin()
+  ">
+
+        <button
+          mat-button
+          color="primary"
+          (click)="editAnnouncement(
+            item
+          )">
+
+          Edit
+
+        </button>
+
+        <button
+          mat-button
+          color="warn"
+          (click)="deleteAnnouncement(
+            item.announcementId
+          )">
+
+          Delete
+
+        </button>
+
+      </div>
+
+    </mat-card>
+
+  </div>
+
+</div>

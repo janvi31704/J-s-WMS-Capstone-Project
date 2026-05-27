@@ -1,0 +1,58 @@
+.employee-page {
+
+  padding: 30px;
+}
+
+.top-section {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  margin-bottom: 30px;
+}
+
+.top-section h1 {
+
+  font-size: 36px;
+
+  color: #222;
+}
+
+.search-field {
+
+  width: 350px;
+
+  margin-bottom: 25px;
+}
+
+.table-container {
+
+  background: white;
+
+  border-radius: 20px;
+
+  overflow: hidden;
+
+  box-shadow:
+    0 6px 20px rgba(0,0,0,0.08);
+}
+
+table {
+
+  width: 100%;
+}
+
+th {
+
+  background: #f5f5f5;
+
+  font-weight: bold;
+}
+
+td, th {
+
+  padding: 18px;
+}

@@ -1,0 +1,120 @@
+<div class="dashboard-layout">
+
+  
+  <!-- MAIN CONTENT -->
+
+  <main class="main-content">
+
+    <div class="topbar">
+
+      <h1>Dashboard</h1>
+
+      
+
+    </div>
+
+    <!-- CARDS -->
+
+    <div class="card-grid">
+
+      <mat-card class="dashboard-card">
+
+        <span class="material-icons card-icon">
+          groups
+        </span>
+
+        <h3>Total Employees</h3>
+
+        <p>
+          {{ dashboardData?.totalEmployees }}
+        </p>
+
+      </mat-card>
+
+      <mat-card class="dashboard-card">
+
+        <span class="material-icons card-icon">
+          apartment
+        </span>
+
+        <h3>Total Departments</h3>
+
+        <p>
+          {{ dashboardData?.totalDepartments }}
+        </p>
+
+      </mat-card>
+
+      <mat-card class="dashboard-card">
+
+        <span class="material-icons card-icon">
+          work
+        </span>
+
+        <h3>Total Projects</h3>
+
+        <p>
+          {{ dashboardData?.totalProjects }}
+        </p>
+
+      </mat-card>
+
+      <mat-card class="dashboard-card">
+
+        <span class="material-icons card-icon">
+          pending_actions
+        </span>
+
+        <h3>Pending Leaves</h3>
+
+        <p>
+          {{ dashboardData?.pendingLeaves }}
+        </p>
+
+      </mat-card>
+
+      <mat-card class="dashboard-card">
+
+        <span class="material-icons card-icon">
+          how_to_reg
+        </span>
+
+        <h3>Present Today</h3>
+
+        <p>
+          {{ dashboardData?.presentEmployeesToday }}
+        </p>
+
+      </mat-card>
+
+    </div>
+
+    <div class="chart-container">
+
+  <div class="chart-container">
+
+  <div class="chart-card">
+
+    <h2>
+      Attendance Analytics
+    </h2>
+
+    <div style="height: 300px;">
+
+      <canvas
+        baseChart
+        [data]="doughnutChartData"
+        [type]="doughnutChartType">
+
+      </canvas>
+
+    </div>
+
+  </div>
+
+</div>
+</div>
+
+  </main>
+
+</div>

@@ -1,0 +1,313 @@
+<div class="employee-page">
+
+  <!-- TOP SECTION -->
+
+  <div class="top-section">
+
+    <h1>
+      Employee Management
+    </h1>
+
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="openAddForm()">
+
+      Add Employee
+
+    </button>
+
+  </div>
+
+  <!-- FORM -->
+
+  <div
+    class="employee-form"
+    *ngIf="showForm">
+
+    <mat-form-field appearance="outline">
+
+      <mat-label>
+        First Name
+      </mat-label>
+
+      <input
+        matInput
+        [(ngModel)]="
+          employeeForm.firstName
+        ">
+
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+
+      <mat-label>
+        Last Name
+      </mat-label>
+
+      <input
+        matInput
+        [(ngModel)]="
+          employeeForm.lastName
+        ">
+
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+
+      <mat-label>
+        Email
+      </mat-label>
+
+      <input
+        matInput
+        [(ngModel)]="
+          employeeForm.email
+        ">
+
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+
+      <mat-label>
+        Phone Number
+      </mat-label>
+
+      <input
+        matInput
+        [(ngModel)]="
+          employeeForm.phoneNumber
+        ">
+
+    </mat-form-field>
+
+    <div class="button-group">
+
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="saveEmployee()">
+
+        {{ isEditMode
+          ? 'Update Employee'
+          : 'Save Employee'
+        }}
+
+      </button>
+
+      <button
+        mat-raised-button
+        color="warn"
+        (click)="closeForm()">
+
+        Cancel
+
+      </button>
+
+    </div>
+
+  </div>
+
+  <!-- SEARCH -->
+
+  <mat-form-field
+    appearance="outline"
+    class="search-field">
+
+    <mat-label>
+      Search Employee
+    </mat-label>
+
+    <input
+      matInput
+      [(ngModel)]="searchText"
+      (input)="searchEmployees()">
+
+  </mat-form-field>
+
+  <!-- TABLE -->
+
+  <div class="table-container">
+
+    <table
+      mat-table
+      [dataSource]="filteredEmployees">
+
+      <!-- ID -->
+
+      <ng-container
+        matColumnDef="employeeId">
+
+        <th
+          mat-header-cell
+          *matHeaderCellDef>
+
+          ID
+
+        </th>
+
+        <td
+          mat-cell
+          *matCellDef="let employee">
+
+          {{ employee.employeeId }}
+
+        </td>
+
+      </ng-container>
+
+      <!-- FIRST NAME -->
+
+      <ng-container
+        matColumnDef="firstName">
+
+        <th
+          mat-header-cell
+          *matHeaderCellDef>
+
+          First Name
+
+        </th>
+
+        <td
+          mat-cell
+          *matCellDef="let employee">
+
+          {{ employee.firstName }}
+
+        </td>
+
+      </ng-container>
+
+      <!-- LAST NAME -->
+
+      <ng-container
+        matColumnDef="lastName">
+
+        <th
+          mat-header-cell
+          *matHeaderCellDef>
+
+          Last Name
+
+        </th>
+
+        <td
+          mat-cell
+          *matCellDef="let employee">
+
+          {{ employee.lastName }}
+
+        </td>
+
+      </ng-container>
+
+      <!-- EMAIL -->
+
+      <ng-container
+        matColumnDef="email">
+
+        <th
+          mat-header-cell
+          *matHeaderCellDef>
+
+          Email
+
+        </th>
+
+        <td
+          mat-cell
+          *matCellDef="let employee">
+
+          {{ employee.email }}
+
+        </td>
+
+      </ng-container>
+
+      <!-- PHONE -->
+
+      <ng-container
+        matColumnDef="phoneNumber">
+
+        <th
+          mat-header-cell
+          *matHeaderCellDef>
+
+          Phone
+
+        </th>
+
+        <td
+          mat-cell
+          *matCellDef="let employee">
+
+          {{ employee.phoneNumber }}
+
+        </td>
+
+      </ng-container>
+
+      <!-- ACTIONS -->
+
+      <ng-container
+        matColumnDef="actions">
+
+        <th
+          mat-header-cell
+          *matHeaderCellDef>
+
+          Actions
+
+        </th>
+
+        <td
+          mat-cell
+          *matCellDef="let employee">
+
+          <button
+            mat-button
+            color="primary"
+            (click)="editEmployee(employee)">
+
+            Edit
+
+          </button>
+
+          <button
+            mat-button
+            color="warn"
+            (click)="deleteEmployee(employee.employeeId)">
+
+            Delete
+
+          </button>
+
+        </td>
+
+      </ng-container>
+
+      <!-- HEADER -->
+
+      <tr
+        mat-header-row
+        *matHeaderRowDef="
+          displayedColumns
+        ">
+      </tr>
+
+      <!-- ROW -->
+
+      <tr
+        mat-row
+        *matRowDef="
+          let row;
+          columns: displayedColumns;
+        ">
+      </tr>
+
+    </table>
+
+  </div>
+
+</div>

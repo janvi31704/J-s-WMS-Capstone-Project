@@ -1,0 +1,367 @@
+<div class="leave-page">
+
+  <!-- HEADER -->
+
+  <div class="top-section">
+
+    <h1>
+      Leave Management
+    </h1>
+
+  </div>
+
+  <!-- FORM -->
+
+  <div class="leave-form">
+
+    <!-- EMPLOYEE -->
+
+    <mat-form-field appearance="outline">
+
+      <mat-label>
+        Employee
+      </mat-label>
+
+      <mat-select
+        [(ngModel)]="
+          leaveForm.employeeId
+        ">
+
+        <mat-option
+          *ngFor="
+            let employee of employees
+          "
+          [value]="employee.employeeId">
+
+          {{ employee.firstName }}
+          {{ employee.lastName }}
+
+        </mat-option>
+
+      </mat-select>
+
+    </mat-form-field>
+
+    <!-- LEAVE TYPE -->
+
+    <mat-form-field appearance="outline">
+
+      <mat-label>
+        Leave Type
+      </mat-label>
+
+      <mat-select
+        [(ngModel)]="
+          leaveForm.leaveType
+        ">
+
+        <mat-option value="Sick">
+
+          Sick
+
+        </mat-option>
+
+        <mat-option value="Casual">
+
+          Casual
+
+        </mat-option>
+
+        <mat-option value="Vacation">
+
+          Vacation
+
+        </mat-option>
+
+      </mat-select>
+
+    </mat-form-field>
+
+    <!-- START DATE -->
+
+    <mat-form-field appearance="outline">
+
+      <mat-label>
+        Start Date
+      </mat-label>
+
+      <input
+        matInput
+        type="date"
+        [(ngModel)]="
+          leaveForm.startDate
+        ">
+
+    </mat-form-field>
+
+    <!-- END DATE -->
+
+    <mat-form-field appearance="outline">
+
+      <mat-label>
+        End Date
+      </mat-label>
+
+      <input
+        matInput
+        type="date"
+        [(ngModel)]="
+          leaveForm.endDate
+        ">
+
+    </mat-form-field>
+
+    <!-- REASON -->
+
+    <mat-form-field appearance="outline">
+
+      <mat-label>
+        Reason
+      </mat-label>
+
+      <input
+        matInput
+        [(ngModel)]="
+          leaveForm.reason
+        ">
+
+    </mat-form-field>
+
+    <!-- APPLY -->
+
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="applyLeave()">
+
+      Apply Leave
+
+    </button>
+
+  </div>
+
+  <!-- TABLE -->
+
+  <div class="table-container">
+
+    <table
+      mat-table
+      [dataSource]="leaveList">
+
+      <!-- EMPLOYEE -->
+
+      <ng-container
+        matColumnDef="employee">
+
+        <th
+          mat-header-cell
+          *matHeaderCellDef>
+
+          Employee
+
+        </th>
+
+        <td
+          mat-cell
+          *matCellDef="let item">
+
+          {{ getEmployeeName(
+              item.employeeId
+            )
+          }}
+
+        </td>
+
+      </ng-container>
+
+      <!-- LEAVE TYPE -->
+
+      <ng-container
+        matColumnDef="leaveType">
+
+        <th
+          mat-header-cell
+          *matHeaderCellDef>
+
+          Leave Type
+
+        </th>
+
+        <td
+          mat-cell
+          *matCellDef="let item">
+
+          {{ item.leaveType }}
+
+        </td>
+
+      </ng-container>
+
+      <!-- START DATE -->
+
+      <ng-container
+        matColumnDef="startDate">
+
+        <th
+          mat-header-cell
+          *matHeaderCellDef>
+
+          Start Date
+
+        </th>
+
+        <td
+          mat-cell
+          *matCellDef="let item">
+
+          {{ item.startDate
+            | date:'mediumDate' }}
+
+        </td>
+
+      </ng-container>
+
+      <!-- END DATE -->
+
+      <ng-container
+        matColumnDef="endDate">
+
+        <th
+          mat-header-cell
+          *matHeaderCellDef>
+
+          End Date
+
+        </th>
+
+        <td
+          mat-cell
+          *matCellDef="let item">
+
+          {{ item.endDate
+            | date:'mediumDate' }}
+
+        </td>
+
+      </ng-container>
+
+      <!-- REASON -->
+
+      <ng-container
+        matColumnDef="reason">
+
+        <th
+          mat-header-cell
+          *matHeaderCellDef>
+
+          Reason
+
+        </th>
+
+        <td
+          mat-cell
+          *matCellDef="let item">
+
+          {{ item.reason }}
+
+        </td>
+
+      </ng-container>
+
+      <!-- STATUS -->
+
+      <ng-container
+        matColumnDef="status">
+
+        <th
+          mat-header-cell
+          *matHeaderCellDef>
+
+          Status
+
+        </th>
+
+        <td
+          mat-cell
+          *matCellDef="let item">
+
+          {{ item.status }}
+
+        </td>
+
+      </ng-container>
+
+      <!-- ACTIONS -->
+
+      <ng-container
+        matColumnDef="actions">
+
+        <th
+          mat-header-cell
+          *matHeaderCellDef>
+
+          Actions
+
+        </th>
+
+        <td
+          mat-cell
+          *matCellDef="let item">
+
+          <div
+  *ngIf="
+    authService.isAdmin()
+    || authService.isManager()
+  ">
+
+  <button
+    mat-button
+    color="primary"
+    (click)="approveLeave(
+      item.leaveRequestId
+    )">
+
+    Approve
+
+  </button>
+
+  <button
+    mat-button
+    color="warn"
+    (click)="rejectLeave(
+      item.leaveRequestId
+    )">
+
+    Reject
+
+  </button>
+
+</div>
+        </td>
+
+      </ng-container>
+
+      <!-- HEADER -->
+
+      <tr
+        mat-header-row
+        *matHeaderRowDef="
+          displayedColumns
+        ">
+      </tr>
+
+      <!-- ROWS -->
+
+      <tr
+        mat-row
+        *matRowDef="
+          let row;
+          columns: displayedColumns;
+        ">
+      </tr>
+
+    </table>
+
+  </div>
+
+</div>

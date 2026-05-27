@@ -1,0 +1,70 @@
+.announcement-form {
+
+  display: flex;
+
+  gap: 20px;
+
+  flex-wrap: wrap;
+
+  align-items: center;
+
+  margin-bottom: 30px;
+}
+
+.announcement-grid {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      auto-fit,
+      minmax(280px, 1fr)
+    );
+
+  gap: 20px;
+}
+
+.announcement-card {
+
+  padding: 15px;
+
+  border-radius: 18px;
+
+  position: relative;
+
+  box-shadow:
+    0 4px 15px rgba(
+      0,
+      0,
+      0,
+      0.08
+    );
+}
+
+.priority {
+
+  position: absolute;
+
+  top: 15px;
+
+  right: 15px;
+
+  background: #6c63ff;
+
+  color: white;
+
+  padding: 5px 12px;
+
+  border-radius: 20px;
+
+  font-size: 12px;
+}
+
+.card-actions {
+
+  margin-top: 20px;
+
+  display: flex;
+
+  gap: 10px;
+}

@@ -1,0 +1,86 @@
+<div class="login-page">
+
+  <div class="login-card">
+
+    <!-- LEFT SIDE -->
+
+    <div class="left-section">
+
+      <img
+  src="https://ouch-cdn2.icons8.com/6sD5w6Y2mQ1YvQ2l9N9P8YqIYx9I1Y1m/illustrations/png/employee-working.png"
+        alt="login illustration">
+
+    </div>
+
+    <!-- RIGHT SIDE -->
+
+    <div class="right-section">
+
+      <h1>Welcome Back</h1>
+
+      <div class="brand">
+
+  <div class="logo-circle">
+    W
+  </div>
+
+  <h2>J's WMS</h2>
+
+</div>
+
+      <p class="subtitle">
+        Workforce Management System
+      </p>
+
+      <form (ngSubmit)="login()">
+
+        <mat-form-field
+          appearance="outline"
+          class="full-width">
+
+          <mat-label>Username</mat-label>
+
+          <input
+            matInput
+            [(ngModel)]="loginData.username"
+            name="username"
+            required>
+
+        </mat-form-field>
+
+        <mat-form-field
+          appearance="outline"
+          class="full-width">
+
+          <mat-label>Password</mat-label>
+
+          <input
+            matInput
+            type="password"
+            [(ngModel)]="loginData.password"
+            name="password"
+            required>
+
+        </mat-form-field>
+
+        <button
+          mat-raised-button
+          color="primary"
+          class="login-btn"
+          type="submit">
+
+          Login
+
+        </button>
+
+      </form>
+
+      <p class="error">
+        {{ errorMessage }}
+      </p>
+
+    </div>
+
+  </div>
+
+</div>

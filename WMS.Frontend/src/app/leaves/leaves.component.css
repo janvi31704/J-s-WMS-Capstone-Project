@@ -1,0 +1,17 @@
+.leave-form {
+
+  display: flex;
+
+  gap: 20px;
+
+  flex-wrap: wrap;
+
+  align-items: center;
+
+  margin-bottom: 30px;
+}
+
+.table-container {
+
+  margin-top: 20px;
+}

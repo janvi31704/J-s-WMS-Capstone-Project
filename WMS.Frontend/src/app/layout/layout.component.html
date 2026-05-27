@@ -1,0 +1,163 @@
+<div class="layout-container">
+
+  <!-- SIDEBAR -->
+
+  <div class="sidebar">
+
+    <!-- LOGO -->
+
+    <div class="logo">
+
+      <div class="logo-circle">
+
+        W
+
+      </div>
+
+      <span>
+        WMS Pro
+      </span>
+
+    </div>
+
+    <!-- MENU -->
+
+    <nav class="menu">
+
+        <a
+            routerLink="/dashboard"
+            *ngIf="
+            authService.isAdmin()
+            || authService.isManager()
+            ">
+    
+            <span class="material-icons">
+            dashboard
+            </span>
+    
+            Dashboard
+    
+        </a>
+    
+        <a
+            routerLink="/employees"
+            *ngIf="
+            authService.isAdmin()
+            ">
+    
+            <span class="material-icons">
+            groups
+            </span>
+    
+            Employees
+    
+        </a>
+
+        <a
+  routerLink="/departments"
+  *ngIf="
+    authService.isAdmin()
+  ">
+
+  <span class="material-icons">
+    apartment
+  </span>
+
+  Departments
+
+</a>
+
+<a
+  routerLink="/projects"
+  *ngIf="
+    authService.isAdmin()
+  ">
+
+  <span class="material-icons">
+    work
+  </span>
+
+  Projects
+
+</a>
+
+<a
+  routerLink="/allocations"
+  *ngIf="
+    authService.isAdmin()
+  ">
+
+  <span class="material-icons">
+    assignment_ind
+  </span>
+
+  Allocations
+
+</a>
+    
+        <a routerLink="/attendance">
+    
+            <span class="material-icons">
+            fact_check
+            </span>
+    
+            Attendance
+    
+        </a>
+    
+        <a routerLink="/leaves">
+    
+            <span class="material-icons">
+            event_busy
+            </span>
+    
+            Leaves
+    
+        </a>
+    
+        <a routerLink="/announcements">
+    
+            <span class="material-icons">
+            campaign
+            </span>
+    
+            Announcement
+ 
+  </a>
+
+
+
+    </nav>
+
+  </div>
+
+  <!-- MAIN CONTENT -->
+
+  <div class="main-content">
+
+    <!-- TOPBAR -->
+
+    <div class="topbar">
+
+      <button
+        class="logout-btn"
+        (click)="logout()">
+
+        Logout
+
+      </button>
+
+    </div>
+
+    <!-- PAGE CONTENT -->
+
+    <div class="page-content">
+
+      <router-outlet>
+      </router-outlet>
+
+    </div>
+
+  </div>
+
+</div>

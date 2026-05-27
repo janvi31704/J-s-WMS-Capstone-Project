@@ -1,0 +1,75 @@
+.attendance-page {
+
+  padding: 30px;
+}
+
+.top-section {
+
+  margin-bottom: 30px;
+}
+
+.top-section h1 {
+
+  font-size: 36px;
+
+  color: #222;
+}
+
+.attendance-actions {
+
+  display: flex;
+
+  gap: 20px;
+
+  align-items: center;
+
+  margin-bottom: 30px;
+}
+
+.table-container {
+
+  background: white;
+
+  border-radius: 20px;
+
+  overflow: hidden;
+
+  box-shadow:
+    0 6px 20px rgba(0,0,0,0.08);
+}
+
+table {
+
+  width: 100%;
+}
+
+th {
+
+  background: #f5f5f5;
+
+  font-weight: bold;
+}
+
+td, th {
+
+  padding: 18px;
+}
+
+.attendance-actions,
+.report-section {
+
+  display: flex;
+
+  gap: 20px;
+
+  align-items: center;
+
+  margin-bottom: 25px;
+
+  flex-wrap: wrap;
+}
+
+.report-section {
+
+  margin-top: 10px;
+}
