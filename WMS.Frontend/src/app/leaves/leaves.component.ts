@@ -71,22 +71,7 @@ implements OnInit {
 
   employees: any[] = [];
 
-  displayedColumns = [
-
-    'employee',
-
-    'leaveType',
-
-    'startDate',
-
-    'endDate',
-
-    'reason',
-
-    'status',
-
-    'actions'
-  ];
+  displayedColumns: string[] = [];
 
   leaveForm = {
 
@@ -118,6 +103,45 @@ implements OnInit {
     this.loadLeaves();
 
     this.loadEmployees();
+
+    if(
+  this.isManagerOrAdmin()
+) {
+
+  this.displayedColumns = [
+
+    'employee',
+
+    'leaveType',
+
+    'startDate',
+
+    'endDate',
+
+    'reason',
+
+    'status',
+
+    'actions'
+  ];
+
+} else {
+
+  this.displayedColumns = [
+
+    'employee',
+
+    'leaveType',
+
+    'startDate',
+
+    'endDate',
+
+    'reason',
+
+    'status'
+  ];
+}
   }
 
   loadEmployees() {
@@ -150,6 +174,16 @@ implements OnInit {
         }
       });
   }
+
+  isManagerOrAdmin(): boolean {
+
+  const role =
+    this.authService
+      .getUserRole();
+
+  return role === 'Admin'
+    || role === 'Manager';
+}
 
   applyLeave() {
 

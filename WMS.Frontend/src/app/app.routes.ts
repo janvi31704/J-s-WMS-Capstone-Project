@@ -14,6 +14,7 @@ import { DepartmentComponent }
 from './department/department.component';
 import { ProjectComponent } from './project/project.component';
 import { AllocationComponent } from './allocation/allocation.component';
+import { RoleComponent } from './role/role.component';  
 
 export const routes: Routes = [
 
@@ -84,6 +85,11 @@ export const routes: Routes = [
         path: 'allocations',
 
         component: AllocationComponent
+      },
+      {
+        path: 'roles',
+
+        component: RoleComponent
       }
     ]
   }

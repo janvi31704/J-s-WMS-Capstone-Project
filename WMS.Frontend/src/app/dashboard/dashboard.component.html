@@ -1,119 +1,227 @@
 <div class="dashboard-layout">
 
-  
   <!-- MAIN CONTENT -->
 
   <main class="main-content">
 
+    <!-- TOPBAR -->
+
     <div class="topbar">
 
-      <h1>Dashboard</h1>
+      <div>
+
+        <h1>
+          Workforce Dashboard
+        </h1>
+
+        <p class="welcome-text">
+
+          Monitor workforce performance
+          and employee activity.
+
+        </p>
+
+      </div>
 
       
 
     </div>
 
-    <!-- CARDS -->
+    <!-- KPI CARDS -->
 
     <div class="card-grid">
 
-      <mat-card class="dashboard-card">
+      <!-- EMPLOYEES -->
+
+      <mat-card
+        class="dashboard-card employees-card">
 
         <span class="material-icons card-icon">
+
           groups
+
         </span>
 
-        <h3>Total Employees</h3>
+        <h3>
+          Total Employees
+        </h3>
 
         <p>
+
           {{ dashboardData?.totalEmployees }}
+
         </p>
 
       </mat-card>
 
-      <mat-card class="dashboard-card">
+      <!-- DEPARTMENTS -->
+
+      <mat-card
+        class="dashboard-card department-card">
 
         <span class="material-icons card-icon">
+
           apartment
+
         </span>
 
-        <h3>Total Departments</h3>
+        <h3>
+          Total Departments
+        </h3>
 
         <p>
+
           {{ dashboardData?.totalDepartments }}
+
         </p>
 
       </mat-card>
 
-      <mat-card class="dashboard-card">
+      <!-- PROJECTS -->
+
+      <mat-card
+        class="dashboard-card project-card">
 
         <span class="material-icons card-icon">
+
           work
+
         </span>
 
-        <h3>Total Projects</h3>
+        <h3>
+          Total Projects
+        </h3>
 
         <p>
+
           {{ dashboardData?.totalProjects }}
+
         </p>
 
       </mat-card>
 
-      <mat-card class="dashboard-card">
+      <!-- LEAVES -->
+
+      <mat-card
+        class="dashboard-card leave-card">
 
         <span class="material-icons card-icon">
+
           pending_actions
+
         </span>
 
-        <h3>Pending Leaves</h3>
+        <h3>
+          Pending Leaves
+        </h3>
 
         <p>
+
           {{ dashboardData?.pendingLeaves }}
+
         </p>
 
       </mat-card>
 
-      <mat-card class="dashboard-card">
+      <!-- PRESENT -->
+
+      <mat-card
+        class="dashboard-card present-card">
 
         <span class="material-icons card-icon">
+
           how_to_reg
+
         </span>
 
-        <h3>Present Today</h3>
+        <h3>
+          Present Today
+        </h3>
 
         <p>
+
           {{ dashboardData?.presentEmployeesToday }}
+
         </p>
 
       </mat-card>
 
     </div>
+
+    <!-- CHART SECTION -->
 
     <div class="chart-container">
 
-  <div class="chart-container">
+      <div class="chart-card">
 
-  <div class="chart-card">
+        <h2>
+          Attendance Analytics
+        </h2>
 
-    <h2>
-      Attendance Analytics
-    </h2>
+        <div class="chart-wrapper">
 
-    <div style="height: 300px;">
+          <canvas
+            baseChart
+            [data]="doughnutChartData"
+            [type]="doughnutChartType">
 
-      <canvas
-        baseChart
-        [data]="doughnutChartData"
-        [type]="doughnutChartType">
+          </canvas>
 
-      </canvas>
+        </div>
+
+      </div>
 
     </div>
 
-  </div>
+    <!-- QUICK ACTIONS -->
 
-</div>
-</div>
+    <div class="quick-actions">
+
+      <h2>
+        Quick Actions
+      </h2>
+
+      <div class="action-grid">
+
+        <button
+          mat-raised-button
+          color="primary"
+          routerLink="/employees">
+
+          Manage Employees
+
+        </button>
+
+        <button
+          mat-raised-button
+          color="accent"
+          routerLink="/attendance">
+
+          Attendance
+
+        </button>
+
+        <button
+          mat-raised-button
+          color="primary"
+          routerLink="/departments">
+
+          Departments
+
+        </button>
+
+        <button
+          mat-raised-button
+          color="warn"
+          routerLink="/leaves">
+
+          Leaves
+
+        </button>
+
+      </div>
+
+    </div>
 
   </main>
 

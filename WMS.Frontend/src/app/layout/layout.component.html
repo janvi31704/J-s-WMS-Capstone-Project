@@ -10,12 +10,12 @@
 
       <div class="logo-circle">
 
-        W
+        JW
 
       </div>
 
       <span>
-        WMS Pro
+        J's WMS 
       </span>
 
     </div>
@@ -123,6 +123,17 @@
     
             Announcement
  
+  </a>
+  <a
+  *ngIf="
+    authService.getUserRole()
+      === 'Admin'
+  "
+  routerLink="/roles">
+    <span class="material-icons">
+      people
+    </span>
+    Roles
   </a>
 
 

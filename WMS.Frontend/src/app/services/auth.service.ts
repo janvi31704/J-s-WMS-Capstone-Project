@@ -8,8 +8,10 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
 
+  
+
   private apiUrl =
-    'http://localhost:5148/api/auth';
+'https://janvi-wms-api-hrhta5a5g4fwcrg9.centralindia-01.azurewebsites.net/api/auth';
 
   private loggedIn =
     new BehaviorSubject<boolean>(
@@ -102,4 +104,10 @@ export class AuthService {
 
     return !!localStorage.getItem('token');
   }
+
+  getUserRole(): string {
+
+  return localStorage
+    .getItem('role') || '';
+}
 }

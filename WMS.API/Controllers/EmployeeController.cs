@@ -45,7 +45,10 @@ namespace WMS.API.Controllers
         {
             await _service.AddAsync(dto);
 
-            return Ok("Employee created successfully");
+            return Ok(new
+{
+    message = "Employee added successfully"
+});
         }
 
         // PUT: api/employee/5
@@ -55,7 +58,10 @@ namespace WMS.API.Controllers
         {
             await _service.UpdateAsync(id, dto);
 
-            return Ok("Employee updated successfully");
+            return Ok(new
+{
+    message = "Employee updated successfully"
+});
         }
 
         // DELETE: api/employee/5
@@ -65,7 +71,10 @@ namespace WMS.API.Controllers
         {
             await _service.DeleteAsync(id);
 
-            return Ok("Employee deleted successfully");
+            return Ok(new
+{
+    message = "Employee deleted successfully"
+});
         }
     }
 }

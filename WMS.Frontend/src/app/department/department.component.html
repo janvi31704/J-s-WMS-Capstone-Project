@@ -4,57 +4,30 @@
 
   <div class="top-section">
 
-    <h1>
-      Department Management
-    </h1>
+  <h1>
+    Department Management
+  </h1>
 
-  </div>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="openDialog()">
 
+    Add Department
+
+  </button>
+
+</div>
   <!-- FORM -->
 
-  <div
-    class="department-form"
-    *ngIf="
-      authService.isAdmin()
-    ">
-
-    <mat-form-field appearance="outline">
-
-      <mat-label>
-        Department Name
-      </mat-label>
-
-      <input
-        matInput
-        [(ngModel)]="
-          departmentForm.departmentName
-        ">
-
-    </mat-form-field>
-
-    <button
-      mat-raised-button
-      color="primary"
-      (click)="saveDepartment()">
-
-      {{
-        isEditMode
-        ? 'Update'
-        : 'Add'
-      }}
-      Department
-
-    </button>
-
-  </div>
-
+  
   <!-- TABLE -->
 
   <div class="table-container">
 
     <table
       mat-table
-      [dataSource]="departmentList">
+      [dataSource]="filteredDepartments">
 
       <!-- ID -->
 
@@ -127,9 +100,7 @@
             <button
               mat-button
               color="primary"
-              (click)="editDepartment(
-                item
-              )">
+              (click)="openDialog(item)">
 
               Edit
 

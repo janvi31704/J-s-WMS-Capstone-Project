@@ -13,7 +13,7 @@ from 'rxjs';
 export class EmployeeService {
 
   private apiUrl =
-    'http://localhost:5148/api/employee';
+'https://janvi-wms-api-hrhta5a5g4fwcrg9.centralindia-01.azurewebsites.net/api/Employee';
 
   constructor(
     private http: HttpClient

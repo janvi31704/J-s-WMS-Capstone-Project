@@ -16,8 +16,9 @@ from 'rxjs';
 })
 export class AllocationService {
 
+  
   private apiUrl =
-    'http://localhost:5148/api/EmployeeProjectAllocation';
+'https://janvi-wms-api-hrhta5a5g4fwcrg9.centralindia-01.azurewebsites.net/api/EmployeeProjectAllocation';
 
   constructor(
     private http: HttpClient

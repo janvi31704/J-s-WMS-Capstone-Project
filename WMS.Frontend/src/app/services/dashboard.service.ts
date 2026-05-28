@@ -12,8 +12,10 @@ from 'rxjs';
 })
 export class DashboardService {
 
+  
+
   private apiUrl =
-    'http://localhost:5148/api/dashboard';
+'https://janvi-wms-api-hrhta5a5g4fwcrg9.centralindia-01.azurewebsites.net/api/dashboard';
 
   constructor(
     private http: HttpClient

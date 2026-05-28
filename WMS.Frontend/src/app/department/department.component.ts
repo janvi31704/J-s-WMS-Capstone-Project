@@ -44,6 +44,17 @@ import {
 }
 from '../services/auth.service';
 
+import {
+  MatDialog,
+  MatDialogModule
+}
+from '@angular/material/dialog';
+
+import {
+  DepartmentDialogComponent
+}
+from '../department-dialog/department-dialog.component';
+
 @Component({
   selector: 'app-department',
 
@@ -55,7 +66,8 @@ from '../services/auth.service';
     MatTableModule,
     MatButtonModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatDialogModule
   ],
 
   templateUrl:
@@ -80,6 +92,10 @@ implements OnInit {
     departmentName: ''
   };
 
+  filteredDepartments: any[] = [];
+
+searchText = '';
+
   isEditMode = false;
 
   selectedDepartmentId = 0;
@@ -90,7 +106,9 @@ implements OnInit {
       DepartmentService,
 
     public authService:
-      AuthService
+      AuthService,
+
+    private dialog: MatDialog
 
   ) {}
 
@@ -109,8 +127,9 @@ implements OnInit {
 
         next: (data) => {
 
-          this.departmentList =
-            data;
+          this.departmentList = data;
+
+this.filteredDepartments = data;
         },
 
         error: (err) => {
@@ -119,6 +138,22 @@ implements OnInit {
         }
       });
   }
+
+  //Search
+
+  searchDepartments() {
+
+  this.filteredDepartments =
+    this.departmentList.filter(d =>
+
+      d.departmentName
+        .toLowerCase()
+        .includes(
+          this.searchText
+            .toLowerCase()
+        )
+    );
+}
 
   // SAVE
 
@@ -234,6 +269,73 @@ implements OnInit {
         });
     }
   }
+
+  openDialog(
+  department: any = null
+) {
+
+  const dialogRef =
+    this.dialog.open(
+
+      DepartmentDialogComponent,
+
+      {
+
+        width: '400px',
+
+        data: department
+          ? {
+
+              ...department,
+
+              isEditMode: true
+            }
+          : {
+
+              departmentName: '',
+
+              isEditMode: false
+            }
+      }
+    );
+
+  dialogRef.afterClosed()
+    .subscribe(result => {
+
+      if(result) {
+
+        if(result.isEditMode) {
+
+          this.departmentService
+            .updateDepartment(
+
+              result.departmentId,
+
+              result
+            )
+            .subscribe({
+
+              next: () => {
+
+                this.loadDepartments();
+              }
+            });
+
+        } else {
+
+          this.departmentService
+            .addDepartment(result)
+            .subscribe({
+
+              next: () => {
+
+                this.loadDepartments();
+              }
+            });
+        }
+      }
+    });
+}
 
   // RESET
 

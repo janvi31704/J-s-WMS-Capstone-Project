@@ -1,4 +1,4 @@
-.department-page {
+.role-page {
 
   padding: 30px;
 }
@@ -21,7 +21,7 @@
   color: #222;
 }
 
-.department-form {
+.role-form {
 
   display: flex;
 
@@ -66,9 +66,4 @@ th {
 td, th {
 
   padding: 18px;
-}
-
-button {
-
-  border-radius: 10px;
 }

@@ -1,4 +1,4 @@
-<div class="leave-page">
+<div class="leaves-page">
 
   <!-- HEADER -->
 
@@ -10,133 +10,143 @@
 
   </div>
 
-  <!-- FORM -->
+  <!-- APPLY LEAVE CARD -->
 
-  <div class="leave-form">
+  <div class="leave-card">
 
-    <!-- EMPLOYEE -->
-
-    <mat-form-field appearance="outline">
-
-      <mat-label>
-        Employee
-      </mat-label>
-
-      <mat-select
-        [(ngModel)]="
-          leaveForm.employeeId
-        ">
-
-        <mat-option
-          *ngFor="
-            let employee of employees
-          "
-          [value]="employee.employeeId">
-
-          {{ employee.firstName }}
-          {{ employee.lastName }}
-
-        </mat-option>
-
-      </mat-select>
-
-    </mat-form-field>
-
-    <!-- LEAVE TYPE -->
-
-    <mat-form-field appearance="outline">
-
-      <mat-label>
-        Leave Type
-      </mat-label>
-
-      <mat-select
-        [(ngModel)]="
-          leaveForm.leaveType
-        ">
-
-        <mat-option value="Sick">
-
-          Sick
-
-        </mat-option>
-
-        <mat-option value="Casual">
-
-          Casual
-
-        </mat-option>
-
-        <mat-option value="Vacation">
-
-          Vacation
-
-        </mat-option>
-
-      </mat-select>
-
-    </mat-form-field>
-
-    <!-- START DATE -->
-
-    <mat-form-field appearance="outline">
-
-      <mat-label>
-        Start Date
-      </mat-label>
-
-      <input
-        matInput
-        type="date"
-        [(ngModel)]="
-          leaveForm.startDate
-        ">
-
-    </mat-form-field>
-
-    <!-- END DATE -->
-
-    <mat-form-field appearance="outline">
-
-      <mat-label>
-        End Date
-      </mat-label>
-
-      <input
-        matInput
-        type="date"
-        [(ngModel)]="
-          leaveForm.endDate
-        ">
-
-    </mat-form-field>
-
-    <!-- REASON -->
-
-    <mat-form-field appearance="outline">
-
-      <mat-label>
-        Reason
-      </mat-label>
-
-      <input
-        matInput
-        [(ngModel)]="
-          leaveForm.reason
-        ">
-
-    </mat-form-field>
-
-    <!-- APPLY -->
-
-    <button
-      mat-raised-button
-      color="primary"
-      (click)="applyLeave()">
-
+    <h2>
       Apply Leave
+    </h2>
 
-    </button>
+    <div class="leave-form">
+
+      <!-- EMPLOYEE -->
+
+      <mat-form-field appearance="outline">
+
+        <mat-label>
+          Employee
+        </mat-label>
+
+        <mat-select
+          [(ngModel)]="leaveForm.employeeId">
+
+          <mat-option
+            *ngFor="
+              let employee of employees
+            "
+            [value]="employee.employeeId">
+
+            {{ employee.firstName }}
+            {{ employee.lastName }}
+
+          </mat-option>
+
+        </mat-select>
+
+      </mat-form-field>
+
+      <!-- LEAVE TYPE -->
+
+      <mat-form-field appearance="outline">
+
+        <mat-label>
+          Leave Type
+        </mat-label>
+
+        <mat-select
+          [(ngModel)]="leaveForm.leaveType">
+
+          <mat-option value="Casual">
+
+            Casual
+
+          </mat-option>
+
+          <mat-option value="Sick">
+
+            Sick
+
+          </mat-option>
+
+          <mat-option value="Emergency">
+
+            Emergency
+
+          </mat-option>
+
+          <mat-option value="Paid">
+
+            Paid
+
+          </mat-option>
+
+        </mat-select>
+
+      </mat-form-field>
+
+      <!-- START DATE -->
+
+      <mat-form-field appearance="outline">
+
+        <mat-label>
+          Start Date
+        </mat-label>
+
+        <input
+          matInput
+          type="date"
+          [(ngModel)]="
+            leaveForm.startDate
+          ">
+
+      </mat-form-field>
+
+      <!-- END DATE -->
+
+      <mat-form-field appearance="outline">
+
+        <mat-label>
+          End Date
+        </mat-label>
+
+        <input
+          matInput
+          type="date"
+          [(ngModel)]="
+            leaveForm.endDate
+          ">
+
+      </mat-form-field>
+
+      <!-- REASON -->
+
+      <mat-form-field appearance="outline">
+
+        <mat-label>
+          Reason
+        </mat-label>
+
+        <input
+          matInput
+          [(ngModel)]="
+            leaveForm.reason
+          ">
+
+      </mat-form-field>
+
+      <!-- BUTTON -->
+
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="applyLeave()">
+
+        Apply Leave
+
+      </button>
+
+    </div>
 
   </div>
 
@@ -166,9 +176,8 @@
           *matCellDef="let item">
 
           {{ getEmployeeName(
-              item.employeeId
-            )
-          }}
+            item.employeeId
+          ) }}
 
         </td>
 
@@ -285,7 +294,23 @@
           mat-cell
           *matCellDef="let item">
 
-          {{ item.status }}
+          <span
+            class="status-badge"
+            [ngClass]="{
+
+              'pending-status':
+                item.status === 'Pending',
+
+              'approved-status':
+                item.status === 'Approved',
+
+              'rejected-status':
+                item.status === 'Rejected'
+            }">
+
+            {{ item.status }}
+
+          </span>
 
         </td>
 
@@ -294,7 +319,10 @@
       <!-- ACTIONS -->
 
       <ng-container
-        matColumnDef="actions">
+  *ngIf="
+    isManagerOrAdmin()
+  "
+  matColumnDef="actions">
 
         <th
           mat-header-cell
@@ -308,35 +336,34 @@
           mat-cell
           *matCellDef="let item">
 
-          <div
-  *ngIf="
-    authService.isAdmin()
-    || authService.isManager()
-  ">
+          <button
+            *ngIf="
+              item.status === 'Pending'
+            "
+            mat-button
+            color="primary"
+            (click)="approveLeave(
+              item.leaveRequestId
+            )">
 
-  <button
-    mat-button
-    color="primary"
-    (click)="approveLeave(
-      item.leaveRequestId
-    )">
+            Approve
 
-    Approve
+          </button>
 
-  </button>
+          <button
+            *ngIf="
+              item.status === 'Pending'
+            "
+            mat-button
+            color="warn"
+            (click)="rejectLeave(
+              item.leaveRequestId
+            )">
 
-  <button
-    mat-button
-    color="warn"
-    (click)="rejectLeave(
-      item.leaveRequestId
-    )">
+            Reject
 
-    Reject
+          </button>
 
-  </button>
-
-</div>
         </td>
 
       </ng-container>
@@ -350,7 +377,7 @@
         ">
       </tr>
 
-      <!-- ROWS -->
+      <!-- ROW -->
 
       <tr
         mat-row

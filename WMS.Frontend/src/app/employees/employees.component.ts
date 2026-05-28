@@ -32,6 +32,21 @@ from '@angular/material/input';
 import { EmployeeService }
 from '../services/employee.service';
 
+import {
+  MatSelectModule
+}
+from '@angular/material/select';
+
+import { DepartmentService } from '../services/department.service';
+
+import { RoleService } from '../services/role.service';
+
+import {
+  MatSnackBar,
+  MatSnackBarModule
+}
+from '@angular/material/snack-bar';
+
 @Component({
   selector: 'app-employees',
 
@@ -43,7 +58,9 @@ from '../services/employee.service';
     MatTableModule,
     MatButtonModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatSelectModule,
+    MatSnackBarModule
   ],
 
   templateUrl:
@@ -74,48 +91,95 @@ implements OnInit {
 
   employeeForm: any = {
 
-    firstName: '',
+  firstName: '',
 
-    lastName: '',
+  lastName: '',
 
-    email: '',
+  email: '',
 
-    phoneNumber: ''
-  };
+  phoneNumber: '',
+
+  gender: '',
+
+  dob: '',
+
+  doj: '',
+
+  departmentId: '',
+
+  roleId: '',
+
+  status: 'Active'
+};
 
   isEditMode = false;
 
   selectedEmployeeId = 0;
 
+  departments: any[] = [];
+
+roles: any[] = [];
+
   constructor(
     private employeeService:
-      EmployeeService
+      EmployeeService,
+    private departmentService: DepartmentService,
+    private roleService: RoleService,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
 
     this.loadEmployees();
+    this.loadDepartments();
+    this.loadRoles();
   }
 
   loadEmployees() {
 
-    this.employeeService
-      .getEmployees()
-      .subscribe({
+  this.employeeService
+    .getEmployees()
+    .subscribe({
 
-        next: (data) => {
+      next: (data) => {
 
-          this.employees = data;
+        this.employees = data;
 
-          this.filteredEmployees = data;
-        },
+        this.filteredEmployees = data;
+      },
 
-        error: (err) => {
+      error: (err) => {
 
-          console.log(err);
-        }
-      });
-  }
+        console.log(err);
+      }
+    });
+}
+
+loadDepartments() {
+
+  this.departmentService
+    .getDepartments()
+    .subscribe({
+
+      next: (data) => {
+
+        this.departments = data;
+      }
+    });
+}
+
+loadRoles() {
+
+  this.roleService
+    .getRoles()
+    .subscribe({
+
+      next: (data) => {
+
+        this.roles = data;
+      }
+    });
+}
 
   searchEmployees() {
 
@@ -145,7 +209,19 @@ implements OnInit {
 
       email: '',
 
-      phoneNumber: ''
+      phoneNumber: '',
+
+      gender: '',
+
+      dob: '',
+
+      doj: '',
+
+      departmentId: '',
+
+      roleId: '',
+
+    status: 'Active'
     };
   }
 
@@ -162,8 +238,12 @@ implements OnInit {
 
           next: () => {
 
-            alert(
-              'Employee updated successfully'
+            this.snackBar.open(
+              'Employee updated successfully',
+              'Close',
+              {
+                duration: 3000
+              }
             );
 
             this.closeForm();
@@ -182,8 +262,12 @@ implements OnInit {
 
           next: () => {
 
-            alert(
-              'Employee added successfully'
+            this.snackBar.open(
+              'Employee added successfully',
+              'Close',
+              {
+                duration: 3000
+              }
             );
 
             this.closeForm();
@@ -205,18 +289,26 @@ implements OnInit {
 
     this.employeeForm = {
 
-      firstName:
-        employee.firstName,
+  firstName: employee.firstName,
 
-      lastName:
-        employee.lastName,
+  lastName: employee.lastName,
 
-      email:
-        employee.email,
+  email: employee.email,
 
-      phoneNumber:
-        employee.phoneNumber
-    };
+  phoneNumber: employee.phoneNumber,
+
+  gender: employee.gender,
+
+  dob: employee.dob,
+
+  doj: employee.doj,
+
+  departmentId: employee.departmentId,
+
+  roleId: employee.roleId,
+
+  status: employee.status
+};
   }
 
   deleteEmployee(id: number) {
@@ -231,8 +323,12 @@ implements OnInit {
 
           next: () => {
 
-            alert(
-              'Employee deleted successfully'
+            this.snackBar.open(
+              'Employee deleted successfully',
+              'Close',
+              {
+                duration: 3000
+              }
             );
 
             this.loadEmployees();
@@ -253,7 +349,19 @@ implements OnInit {
 
       email: '',
 
-      phoneNumber: ''
+      phoneNumber: '',
+
+      gender: '',
+
+      dob: '',
+
+      doj: '',
+
+      departmentId: '',
+
+      roleId: '',
+
+    status: 'Active'
     };
 
     this.isEditMode = false;

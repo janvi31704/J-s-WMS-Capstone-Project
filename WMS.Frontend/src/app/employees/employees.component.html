@@ -81,6 +81,142 @@
 
     </mat-form-field>
 
+    <!-- GENDER -->
+
+<mat-form-field appearance="outline">
+
+  <mat-label>
+    Gender
+  </mat-label>
+
+  <select
+    matNativeControl
+    [(ngModel)]="employeeForm.gender">
+
+    <option value="M">Male</option>
+
+    <option value="F">Female</option>
+
+    <option value="O">Other</option>
+
+  </select>
+
+</mat-form-field>
+
+<!-- DOB -->
+
+<mat-form-field appearance="outline">
+
+  <mat-label>
+    Date of Birth
+  </mat-label>
+
+  <input
+    matInput
+    type="date"
+    [(ngModel)]="employeeForm.dob">
+
+</mat-form-field>
+
+<!-- DOJ -->
+
+<mat-form-field appearance="outline">
+
+  <mat-label>
+    Date of Joining
+  </mat-label>
+
+  <input
+    matInput
+    type="date"
+    [(ngModel)]="employeeForm.doj">
+
+</mat-form-field>
+
+<!-- DEPARTMENT -->
+
+<mat-form-field appearance="outline">
+
+  <mat-label>
+    Department
+  </mat-label>
+
+  <mat-select
+    [(ngModel)]="
+      employeeForm.departmentId
+    ">
+
+    <mat-option
+      *ngFor="
+        let department
+        of departments
+      "
+      [value]="
+        department.departmentId
+      ">
+
+      {{ department.departmentName }}
+
+    </mat-option>
+
+  </mat-select>
+
+</mat-form-field>
+
+<!-- ROLE -->
+
+<mat-form-field appearance="outline">
+
+  <mat-label>
+    Role
+  </mat-label>
+
+  <mat-select
+    [(ngModel)]="
+      employeeForm.roleId
+    ">
+
+    <mat-option
+      *ngFor="
+        let role
+        of roles
+      "
+      [value]="
+        role.roleId
+      ">
+
+      {{ role.roleName }}
+
+    </mat-option>
+
+  </mat-select>
+
+</mat-form-field>
+
+<!-- STATUS -->
+
+<mat-form-field appearance="outline">
+
+  <mat-label>
+    Status
+  </mat-label>
+
+  <select
+    matNativeControl
+    [(ngModel)]="employeeForm.status">
+
+    <option value="Active">
+      Active
+    </option>
+
+    <option value="Inactive">
+      Inactive
+    </option>
+
+  </select>
+
+</mat-form-field>
+
     <div class="button-group">
 
       <button

@@ -10,192 +10,201 @@
 
   </div>
 
-  <!-- ATTENDANCE ACTIONS -->
+  <!-- ACTION CARD -->
 
-<div class="attendance-actions">
+  <div class="action-card">
 
-  <!-- EMPLOYEE -->
+    <div class="attendance-actions">
 
-  <mat-form-field appearance="outline">
+      <!-- EMPLOYEE -->
 
-    <mat-label>
-      Employee
-    </mat-label>
+      <mat-form-field appearance="outline">
 
-    <mat-select
-      [(ngModel)]="employeeId">
+        <mat-label>
+          Employee
+        </mat-label>
 
-      <mat-option
-        *ngFor="
-          let employee of employees
-        "
-        [value]="employee.employeeId">
+        <mat-select
+          [(ngModel)]="employeeId">
 
-        {{ employee.firstName }}
-        {{ employee.lastName }}
+          <mat-option
+            *ngFor="
+              let employee of employees
+            "
+            [value]="employee.employeeId">
 
-      </mat-option>
+            {{ employee.firstName }}
+            {{ employee.lastName }}
 
-    </mat-select>
+          </mat-option>
 
-  </mat-form-field>
+        </mat-select>
 
-  <!-- WORK MODE -->
+      </mat-form-field>
 
-  <mat-form-field appearance="outline">
+      <!-- WORK MODE -->
 
-    <mat-label>
-      Work Mode
-    </mat-label>
+      <mat-form-field appearance="outline">
 
-    <mat-select
-      [(ngModel)]="workMode">
+        <mat-label>
+          Work Mode
+        </mat-label>
 
-      <mat-option value="Office">
-        Office
-      </mat-option>
+        <mat-select
+          [(ngModel)]="workMode">
 
-      <mat-option value="Remote">
-        Remote
-      </mat-option>
+          <mat-option value="Office">
+            Office
+          </mat-option>
 
-      <mat-option value="Hybrid">
-        Hybrid
-      </mat-option>
+          <mat-option value="Remote">
+            Remote
+          </mat-option>
 
-    </mat-select>
+          <mat-option value="Hybrid">
+            Hybrid
+          </mat-option>
 
-  </mat-form-field>
+        </mat-select>
 
-  <!-- CHECK IN -->
+      </mat-form-field>
 
-  <button
-    mat-raised-button
-    color="primary"
-    (click)="checkIn()">
+      <!-- CHECK IN -->
 
-    Check In
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="checkIn()">
 
-  </button>
+        Check In
 
-  <!-- CHECK OUT -->
+      </button>
 
-  <button
-    mat-raised-button
-    color="accent"
-    (click)="checkOut()">
+      <!-- CHECK OUT -->
 
-    Check Out
+      <button
+        mat-raised-button
+        color="accent"
+        (click)="checkOut()">
 
-  </button>
+        Check Out
 
-</div>
+      </button>
 
-<!-- REPORT SECTION -->
+    </div>
 
-<div class="report-section">
+  </div>
 
-  <!-- MONTH -->
+  <!-- REPORT CARD -->
 
-  <mat-form-field appearance="outline">
+  <div class="report-card">
 
-    <mat-label>
-      Month
-    </mat-label>
+    <div class="report-section">
 
-    <mat-select
-      [(ngModel)]="selectedMonth">
+      <!-- MONTH -->
 
-      <mat-option [value]="1">
-        January
-      </mat-option>
+      <mat-form-field appearance="outline">
 
-      <mat-option [value]="2">
-        February
-      </mat-option>
+        <mat-label>
+          Month
+        </mat-label>
 
-      <mat-option [value]="3">
-        March
-      </mat-option>
+        <mat-select
+          [(ngModel)]="selectedMonth">
 
-      <mat-option [value]="4">
-        April
-      </mat-option>
+          <mat-option [value]="1">
+            January
+          </mat-option>
 
-      <mat-option [value]="5">
-        May
-      </mat-option>
+          <mat-option [value]="2">
+            February
+          </mat-option>
 
-      <mat-option [value]="6">
-        June
-      </mat-option>
+          <mat-option [value]="3">
+            March
+          </mat-option>
 
-      <mat-option [value]="7">
-        July
-      </mat-option>
+          <mat-option [value]="4">
+            April
+          </mat-option>
 
-      <mat-option [value]="8">
-        August
-      </mat-option>
+          <mat-option [value]="5">
+            May
+          </mat-option>
 
-      <mat-option [value]="9">
-        September
-      </mat-option>
+          <mat-option [value]="6">
+            June
+          </mat-option>
 
-      <mat-option [value]="10">
-        October
-      </mat-option>
+          <mat-option [value]="7">
+            July
+          </mat-option>
 
-      <mat-option [value]="11">
-        November
-      </mat-option>
+          <mat-option [value]="8">
+            August
+          </mat-option>
 
-      <mat-option [value]="12">
-        December
-      </mat-option>
+          <mat-option [value]="9">
+            September
+          </mat-option>
 
-    </mat-select>
+          <mat-option [value]="10">
+            October
+          </mat-option>
 
-  </mat-form-field>
+          <mat-option [value]="11">
+            November
+          </mat-option>
 
-  <!-- YEAR -->
+          <mat-option [value]="12">
+            December
+          </mat-option>
 
-  <mat-form-field appearance="outline">
+        </mat-select>
 
-    <mat-label>
-      Year
-    </mat-label>
+      </mat-form-field>
 
-    <input
-      matInput
-      type="number"
-      [(ngModel)]="selectedYear">
+      <!-- YEAR -->
 
-  </mat-form-field>
+      <mat-form-field appearance="outline">
 
-  <!-- VIEW BUTTON -->
+        <mat-label>
+          Year
+        </mat-label>
 
-  <button
-    mat-raised-button
-    color="warn"
-    (click)="loadMonthlyAttendance()">
+        <input
+          matInput
+          type="number"
+          [(ngModel)]="selectedYear">
 
-    View Monthly Attendance
+      </mat-form-field>
 
-  </button>
+      <!-- VIEW REPORT -->
 
-  <!-- EXPORT -->
+      <button
+        mat-raised-button
+        color="warn"
+        (click)="loadMonthlyAttendance()">
 
-  <button
-    mat-raised-button
-    color="primary"
-    (click)="exportAttendanceReport()">
+        View Monthly Attendance
 
-    Download Report
+      </button>
 
-  </button>
+      <!-- DOWNLOAD -->
 
-</div>
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="exportAttendanceReport()">
+
+        Download Report
+
+      </button>
+
+    </div>
+
+  </div>
+
   <!-- TABLE -->
 
   <div class="table-container">
@@ -350,8 +359,26 @@
 
       <!-- WORK MODE -->
 
-      
-        
+      <ng-container
+        matColumnDef="workMode">
+
+        <th
+          mat-header-cell
+          *matHeaderCellDef>
+
+          Work Mode
+
+        </th>
+
+        <td
+          mat-cell
+          *matCellDef="let item">
+
+          {{ item.workMode }}
+
+        </td>
+
+      </ng-container>
 
       <!-- STATUS -->
 
@@ -370,7 +397,23 @@
           mat-cell
           *matCellDef="let item">
 
-          {{ item.status }}
+          <span
+            class="status-badge"
+            [ngClass]="{
+
+              'present-status':
+                item.status === 'Present',
+
+              'late-status':
+                item.status === 'Late',
+
+              'halfday-status':
+                item.status === 'Half-Day'
+            }">
+
+            {{ item.status }}
+
+          </span>
 
         </td>
 

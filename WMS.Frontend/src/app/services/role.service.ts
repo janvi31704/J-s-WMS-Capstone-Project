@@ -1,72 +1,57 @@
 import { Injectable }
 from '@angular/core';
 
-import {
-  HttpClient
-}
+import { HttpClient }
 from '@angular/common/http';
 
-import {
-  Observable
-}
+import { Observable }
 from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProjectService {
+export class RoleService {
 
-  
-
+ 
   private apiUrl =
-'https://janvi-wms-api-hrhta5a5g4fwcrg9.centralindia-01.azurewebsites.net/api/Project';
+'https://janvi-wms-api-hrhta5a5g4fwcrg9.centralindia-01.azurewebsites.net/api/Role';
 
   constructor(
     private http: HttpClient
   ) {}
 
-  // GET ALL
-
-  getProjects():
-  Observable<any[]> {
+  getRoles(): Observable<any[]> {
 
     return this.http.get<any[]>(
       this.apiUrl
     );
   }
 
-  // ADD
-
-  addProject(
-    project: any
-  ): Observable<any> {
+  addRole(role: any) {
 
     return this.http.post(
       this.apiUrl,
-      project
+      role
     );
   }
 
-  // UPDATE
-
-  updateProject(
+  updateRole(
     id: number,
-    project: any
-  ): Observable<any> {
+    role: any
+  ) {
 
     return this.http.put(
+
       `${this.apiUrl}/${id}`,
-      project
+
+      role
     );
   }
 
-  // DELETE
-
-  deleteProject(
-    id: number
-  ): Observable<any> {
+  deleteRole(id: number) {
 
     return this.http.delete(
+
       `${this.apiUrl}/${id}`
     );
   }
