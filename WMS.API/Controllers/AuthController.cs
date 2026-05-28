@@ -17,33 +17,40 @@ namespace WMS.API.Controllers
 
         [HttpPost("register")]
         public async Task<IActionResult> Register(
-            RegisterUserDto dto)
+            [FromBody] RegisterUserDto dto)
         {
             try
             {
                 await _service.RegisterAsync(dto);
 
-                return Ok("User registered successfully");
+                return Ok(
+                    "User registered successfully"
+                );
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(
+                    ex.Message
+                );
             }
         }
 
         [HttpPost("login")]
         public async Task<IActionResult> Login(
-            LoginDto dto)
+            [FromBody] LoginDto dto)
         {
             try
             {
-                var result = await _service.LoginAsync(dto);
+                var result =
+                    await _service.LoginAsync(dto);
 
                 return Ok(result);
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(
+                    ex.Message
+                );
             }
         }
     }
