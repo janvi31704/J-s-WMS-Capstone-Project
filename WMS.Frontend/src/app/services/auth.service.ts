@@ -11,7 +11,7 @@ export class AuthService {
   
 
   private apiUrl =
-'https://janvi-wms-api-hrhta5a5g4fwcrg9.centralindia-01.azurewebsites.net/api/auth';
+'https://janvi-wms-api-hrhta5a5g4fwcrg9.centralindia-01.azurewebsites.net/api/Auth';
 
   private loggedIn =
     new BehaviorSubject<boolean>(
