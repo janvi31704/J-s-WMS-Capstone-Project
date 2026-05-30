@@ -1,20 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 
 * {
-
   margin: 0;
-
   padding: 0;
-
   box-sizing: border-box;
-
   font-family: 'Poppins', sans-serif;
 }
 
 body {
-
   background: #f5f7fb;
-
   color: #222;
 }
 
@@ -28,11 +22,8 @@ body {
 /* BUTTONS */
 
 button {
-
   border-radius: 10px !important;
-
   text-transform: none !important;
-
   font-weight: 500 !important;
 }
 
@@ -107,12 +98,10 @@ th {
   overflow: hidden;
 
   box-shadow:
-    0 4px 14px rgba(
+    0 4px 14px rgba(0,
       0,
       0,
-      0,
-      0.08
-    );
+      0.08);
 }
 
 /* RESPONSIVE */
